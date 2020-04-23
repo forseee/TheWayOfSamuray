@@ -8,23 +8,36 @@ function Dialogs(props) {
 
     let messageElements = props.state.messages.map(m => <MessageItems message={m.message} />)
 
+    function sendMessage(){
+        props.dispatch(addPostActionCreator())  
+    }
+
+    function onMessageChange() {
+        let text = newPostElement.current.value;
+        props.dispatch(updateNewPostTextActionCreator(text))
+
+    }
+
     return (
         <div className={clascss.dialogs}>
             <div className={clascss.dialogItems}>
                 {dialogElemets}
             </div>
             <div className={clascss.messages}>
-                {messageElements}
-            </div>
-
-            <div>
                 <div>
-                    <textarea />
-                </div>
+                    {messageElements}
+                
                 <div>
-                    <button >Отправить сообщение</button>
-                </div>
+                    <div>
+                        <textarea onChange={onMessageChange}
+                                  value={props.newPostText}/>
+                    </div>
+                    <div>
+                        <button onClick={sendMessage}>Отправить сообщение</button>
+                    </div>
 
+                </div>
+                </div>
             </div>
         </div>
     )
