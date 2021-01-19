@@ -20,6 +20,9 @@ function Navbar() {
             <div className={classcss.item}>
                 <NavLink to='/settings' activeClassName={classcss.activeLink} >Settings</NavLink>
             </div>
+            <div className={classcss.item}>
+                <NavLink to='/users' activeClassName={classcss.activeLink} >Users</NavLink>
+            </div>
 
         </nav>
     )

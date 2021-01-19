@@ -1,25 +1,23 @@
 import React from 'react';
 import Post1 from './Post1/Post1';
 import classcss from './MyPosts.module.css'
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../Redux/state';
 
 
-const MyPosts= (props)=> {
-   
+const MyPosts = (props) => {
+
     let postsElements = props.posts.map(
         (m) => (<Post1 message={m.message} like={m.likes} />)
     )
 
     let newPostElement = React.createRef();
 
-    function addPost(){
-        props.dispatch(addPostActionCreator())  
+    function addPost() {
+        props.addPostAction()
     }
 
     function onPostChange() {
         let text = newPostElement.current.value;
-        props.dispatch(updateNewPostTextActionCreator(text))
-
+        props.updateNewPostTextAction(text)
     }
 
     return (
@@ -28,13 +26,12 @@ const MyPosts= (props)=> {
             <div>
                 <div>
                     <textarea onChange={onPostChange}
-                              ref={newPostElement} 
-                              value={props.newPostText}/>
+                        ref={newPostElement}
+                        value={props.newPostText} />
                 </div>
                 <div>
                     <button onClick={addPost}>Добавить пост</button>
                 </div>
-
             </div>
             <div className={classcss.massageBlock}>
                 {postsElements}

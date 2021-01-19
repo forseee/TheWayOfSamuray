@@ -1,13 +1,25 @@
 import React from 'react';
+import Preloader from '../../Navbar/Users/Preloader';
+import ProfileStatus from './ProfileStatus';
 
 
-function ProfileInfo(props) {
+const  ProfileInfo = (props) =>  {
+    if(!props.profile){
+        return <Preloader />
+    }
+
     return (
         <div>
-            <img src='https://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg' />
+            <div>
+                <img src='https://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg' />
+            </div>
+            <div>
+                <img src = {props.profile.photos.large}/>
+                <ProfileStatus status='Я учу React'/>
+            </div>
         </div>
     )
 }
 
 
-export default ProfileInfo;
+export default ProfileInfo

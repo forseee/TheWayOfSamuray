@@ -3,18 +3,23 @@ import clascss from './Dialogs.module.css'
 import DialogItems from './DialogItems/DialogItems'
 import MessageItems from './MessageItems/MessageItems'
 
+
 function Dialogs(props) {
-    let dialogElemets = props.state.dialogs.map(d => <DialogItems id={d.id} name={d.name} />)
 
-    let messageElements = props.state.messages.map(m => <MessageItems message={m.message} />)
+    let dialogElemets = props.state.dialogs.map(d => <DialogItems id={d.id}
+        key={d.id} name={d.name} />)
 
-    function sendMessage(){
-        props.dispatch(addPostActionCreator())  
+    let messageElements = props.state.messages.map(m => <MessageItems key={m.id} message={m.message} />)
+
+    let newMessageBody = props.state.newMessageBody;
+
+    function sendMessage() {
+        props.sendMassageCreator()
     }
 
-    function onMessageChange() {
-        let text = newPostElement.current.value;
-        props.dispatch(updateNewPostTextActionCreator(text))
+    function onMessageChange(e) {
+        let bady = e.target.value;
+        props.updateNewMessageBadyCreator(bady);
 
     }
 
@@ -26,17 +31,16 @@ function Dialogs(props) {
             <div className={clascss.messages}>
                 <div>
                     {messageElements}
-                
-                <div>
                     <div>
-                        <textarea onChange={onMessageChange}
-                                  value={props.newPostText}/>
+                        <div>
+                            <textarea placeholder='Enter you message'
+                                onChange={onMessageChange}
+                                value={newMessageBody} />
+                        </div>
+                        <div>
+                            <button onClick={sendMessage}>Send</button>
+                        </div>
                     </div>
-                    <div>
-                        <button onClick={sendMessage}>Отправить сообщение</button>
-                    </div>
-
-                </div>
                 </div>
             </div>
         </div>
