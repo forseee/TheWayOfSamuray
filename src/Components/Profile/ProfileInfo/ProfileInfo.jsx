@@ -14,8 +14,8 @@ const  ProfileInfo = (props) =>  {
                 <img src='https://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg' />
             </div>
             <div>
-                <img src = {props.profile.photos.large}/>
-                <ProfileStatus status='Я учу React'/>
+                <img src = {props.profile.photos.large}/> 
+                <ProfileStatus status={props.status} updateStatus= {props.updateStatus}/>
             </div>
         </div>
     )

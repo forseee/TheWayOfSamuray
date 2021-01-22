@@ -2,33 +2,54 @@ import React from 'react'
 
 class ProfileStatus extends React.Component {
 
-    state= {
-        ChangingStatus: false
+    state = {
+        ChangingStatus: false,
+        status: this.props.status,
     }
 
-    ChangeStatus= () => {
-        this.state.ChangingStatus ?
+
+
+    activateInput = () => {
+        this.setState({
+            ChangingStatus: true
+        })
+    }
+
+    diactivateInput = () => {
         this.setState({
             ChangingStatus: false
         })
-        :  this.setState({
-            ChangingStatus: true
+        this.props.updateStatus(this.state.status)
+    }
+
+    changeStatus = (e) => {
+        this.setState({
+            status: e.currentTarget.value
         })
-    } 
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
+
 
     render() {
         return (
             <>
                 { !this.state.ChangingStatus &&
                     <div>
-                        <span onDoubleClick= {this.ChangeStatus}>{this.props.status}</span>
+                        <span onDoubleClick={this.activateInput}>{this.props.status || '-----'}</span>
                     </div>
 
                 }
 
                 { this.state.ChangingStatus &&
                     <div>
-                        <input autoFocus={true} onBlur={this.ChangeStatus} value={this.props.status} />
+                        <input onChange={this.changeStatus} autoFocus={true} onBlur={this.diactivateInput} value={this.state.status} />
                     </div>
                 }
 
