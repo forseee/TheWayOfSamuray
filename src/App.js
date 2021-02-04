@@ -7,6 +7,7 @@ import UsersConteiner from './Components/Navbar/Users/UsersConteiner'
 import ProfileConteiner from './Components/Profile/ProfileConteiner';
 import HeaderConteiner from './Components/Header/HederConteiner'
 import Login from './Components/Login/Login'
+import News from './Components/Navbar/News/News';
 
 
 
@@ -33,6 +34,9 @@ function App(props) {
           render={() =>
             <Login />}
         />
+        <Route path='/news'
+          render={() =>
+            <News />} />
 
       </div>
     </div>

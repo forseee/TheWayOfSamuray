@@ -1,12 +1,10 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import clascss from './News.module.css'
 
-function News (props){
-    return(
-        <div>
-            News
-        </div>
-    )
+const News= (props) => {
+    
+    return <Redirect to='/login'/>
 }
 
 export default News;

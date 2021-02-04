@@ -1,14 +1,46 @@
-import React from 'react'
-import './login.css'
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-const Login = (props) => {
-    return (
-        <div>
-            <div className='login'>
-                <h1>LOGIN</h1>
-            </div>
-        </div>
-    )
-}
+const Login = () => (
+    <div>
+        <h1>Login</h1>
+        <Formik
+            initialValues={{ email: '', password: '' }}
+            validate={values => {
+                const errors = {};
+                if (!values.email) {
+                    errors.email = 'Required';
+                // } else if (
+                //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                // ) {
+                //     errors.email = 'Invalid email address';
+                }
+                return errors;
+            }}
+            onSubmit={(values, { setSubmitting }) => {
+                setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
+                    setSubmitting(false);
+                }, 400);
+            }}
+        >
+            {({ isSubmitting }) => (
+                <Form>
+                    <Field type="email" name="email" placeholder="email" />
+                    <ErrorMessage name="email"/>
+                    <div>
+                        <Field type="password" name="password" placeholder="password" />
+                    </div>
+                    <ErrorMessage name="password" component="div" />
+                    <div>
+                        <button type="submit" disabled={isSubmitting}>
+                            Login
+                    </button>
+                    </div>
+                </Form>
+            )}
+        </Formik>
+    </div>
+);
 
 export default Login;
