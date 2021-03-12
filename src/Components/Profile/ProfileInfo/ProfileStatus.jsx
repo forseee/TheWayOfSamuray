@@ -1,61 +1,44 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 
-class ProfileStatus extends React.Component {
+const ProfileStatus = (props) => {
+  let [status, setStatus] = useState(props.status);
+  let [editMode, setEditMode] = useState(false);
 
-    state = {
-        ChangingStatus: false,
-        status: this.props.status,
-    }
+  const diactivateEditMode = () => {
+    setEditMode(false);
+    props.updateStatus(status);
+  };
 
+  const changeStatus = (e) => {
+    setStatus(e.currentTarget.value);
+  };
 
+  useEffect(() => {
+    setStatus(props.status);
+  }, [props.status]);
 
-    activateInput = () => {
-        this.setState({
-            ChangingStatus: true
-        })
-    }
+  return (
+    <div>
+      {!editMode && (
+        <div>
+          <span onDoubleClick={() => setEditMode(true)}>
+            {props.status || "-----"}
+          </span>
+        </div>
+      )}
 
-    diactivateInput = () => {
-        this.setState({
-            ChangingStatus: false
-        })
-        this.props.updateStatus(this.state.status)
-    }
+      {editMode && (
+        <div>
+          <input
+            onChange={changeStatus}
+            autoFocus={true}
+            onBlur={diactivateEditMode}
+            value={status}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
-    changeStatus = (e) => {
-        this.setState({
-            status: e.currentTarget.value
-        })
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                status: this.props.status
-            })
-        }
-    }
-
-
-    render() {
-        return (
-            <>
-                { !this.state.ChangingStatus &&
-                    <div>
-                        <span onDoubleClick={this.activateInput}>{this.props.status || '-----'}</span>
-                    </div>
-
-                }
-
-                { this.state.ChangingStatus &&
-                    <div>
-                        <input onChange={this.changeStatus} autoFocus={true} onBlur={this.diactivateInput} value={this.state.status} />
-                    </div>
-                }
-
-            </>
-        )
-    }
-}
-
-export default ProfileStatus
+export default ProfileStatus;
